@@ -55,7 +55,7 @@ export const AutoComplete = () => {
   return (
     <>
       <div className="m-4 relative w-96 max-w-xl">
-        <div class="border px-2 py-0.5 flex items-center justify-between rounded hover:border-blue-600 hover:border-2">
+        <div className="border px-2 py-0.5 flex items-center justify-between rounded hover:border-blue-600 hover:border-2">
           <input
             type="text"
             className="outline-none w-full"
