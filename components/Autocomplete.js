@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { API_Urls } from '../constants/api-urls.js';
 const axios = require('axios');
 export const AutoComplete = () => {
   const [users, updateUsers] = useState([]);
@@ -33,7 +34,7 @@ export const AutoComplete = () => {
 
   const getGithubUserData = (username) => {
     axios
-      .get('https://api.github.com/search/users', {
+      .get(API_Urls.github_user_details, {
         params: {
           q: username,
         },
@@ -76,7 +77,7 @@ export const AutoComplete = () => {
               <div
                 className={[
                   'opacity-30 cursor-pointer transform  transition ',
-                  panelState ? 'rotate' : 'rotate-180',
+                  !panelState ? 'rotate' : 'rotate-180',
                 ].join(' ')}
                 onClick={() => {
                   if (users.length) {
