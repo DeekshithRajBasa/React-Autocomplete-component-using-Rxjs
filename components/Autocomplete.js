@@ -54,8 +54,8 @@ export const AutoComplete = () => {
 
   return (
     <>
-      <div className="m-4 relative">
-        <div class="border px-2 py-0.5 flex items-center justify-between rounded hover:outline">
+      <div className="m-4 relative w-96 max-w-xl">
+        <div class="border px-2 py-0.5 flex items-center justify-between rounded hover:border-blue-600 hover:border-2">
           <input
             type="text"
             className="outline-none w-full"
@@ -70,6 +70,7 @@ export const AutoComplete = () => {
               setLoading(false);
               // setPanelState(false);
             }}
+            placeholder="Search users"
           />
           <div className="flex items-center">
             <div className="opacity-20 mb-0.5">|</div>
@@ -113,7 +114,7 @@ export const AutoComplete = () => {
             panelState &&
             users.map((ele, index) => (
               <div
-                className="px-2  border-b last:border-none hover:bg-gray-100 py-1 cursor-pointer bg-white"
+                className="px-2  border-b last:border-none hover:bg-gray-100 py-1 cursor-pointer bg-white hover:text-blue-900"
                 onClick={() => {
                   setCurrentUser(ele);
                   setQueryName(ele.login);
@@ -121,11 +122,23 @@ export const AutoComplete = () => {
                 }}
                 key={index}
               >
-                <div className="flex items-center ">
+                <div
+                  className={[
+                    'flex items-center',
+                    JSON.stringify(currentUser) === JSON.stringify(ele)
+                      ? 'text-blue-900'
+                      : '',
+                  ].join(' ')}
+                >
                   <div>
                     {' '}
                     <img
-                      className="rounded-full w-8"
+                      className={[
+                        'rounded-full w-8',
+                        JSON.stringify(currentUser) === JSON.stringify(ele)
+                          ? 'border-2 border-blue-900'
+                          : '',
+                      ].join(' ')}
                       src={ele.avatar_url}
                       alt=""
                     />
@@ -134,6 +147,11 @@ export const AutoComplete = () => {
                     {ele.login}
                     <div className="text-xs">{ele.id}</div>
                   </div>
+                  {JSON.stringify(currentUser) === JSON.stringify(ele) && (
+                    <div className="ml-auto text-xs bg-green-100 rounded px-2 py-1 text-green-800">
+                      Sselected
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -146,9 +164,32 @@ export const AutoComplete = () => {
 
         <div>
           {currentUser && (
-            <div className="text-xs">
+            <div className="text-xs mt-6">
               Selected User Details :{' '}
-              <span className="font-semibold">{currentUser.login}</span>
+              <div className="grid grid-cols-3 mt-2">
+                <div className="border hover:border-dotted p-2">
+                  <span className="font-semibold">Username</span>
+                </div>
+                <div className="border hover:border-dotted p-2">
+                  <span className="font-semibold">Id</span>
+                </div>
+                <div className="border hover:border-dotted p-2">
+                  Profile link
+                </div>
+              </div>
+              <div className="grid grid-cols-3">
+                <div className="border hover:border-dotted p-2">
+                  <span className="font-semibold">{currentUser.login}</span>
+                </div>
+                <div className="border hover:border-dotted p-2">
+                  <span className="font-semibold">{currentUser.id}</span>
+                </div>
+                <div className="border hover:border-dotted p-2 text-blue-400 underline">
+                  <a href={currentUser.html_url} target="_blank">
+                    {currentUser.html_url}
+                  </a>
+                </div>
+              </div>
             </div>
           )}
         </div>
