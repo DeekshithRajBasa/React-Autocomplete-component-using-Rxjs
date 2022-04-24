@@ -149,7 +149,7 @@ export const AutoComplete = () => {
                   </div>
                   {JSON.stringify(currentUser) === JSON.stringify(ele) && (
                     <div className="ml-auto text-xs bg-green-100 rounded px-2 py-1 text-green-800">
-                      Sselected
+                      Selected
                     </div>
                   )}
                 </div>
